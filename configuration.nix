@@ -45,7 +45,10 @@
 
 	services = {
 		# Flatpak
-		flatpak.enable = true;
+		# flatpak.enable = true;
+
+		# Display manager
+		displayManager.defaultSession = "gnome";
 
 		# Enable sound with pipewire.
 		pipewire = {
@@ -95,6 +98,8 @@
 			gnome-connections
 			gnome-contacts
 			gnome-console
+			gnome-font-viewer
+			gnome-logs
 			gnome-maps
 			gnome-music
 			gnome-photos
@@ -123,7 +128,7 @@
 
 	hardware = {
 		graphics.enable = true;
-		pulseaudio.enable = false;
+		pulseaudio.enable = true;
 		nvidia = {
 			modesetting.enable = true;
 			powerManagement.enable = true;
@@ -186,13 +191,18 @@
 				enable = true;
 				plugins = [
 					"command-not-found"
+					"docker"
+					"fzf"
 					"git"
 					"git-prompt"
 					"gitignore"
+					"golang"
 					"rust"
 					"safe-paste"
 					"shrink-path"
 					"vi-mode"
+					"zsh-interactive-cd"
+					"zsh-navigation-tools"
 				];
 				theme = "robbyrussell";
 			};
@@ -206,6 +216,7 @@
 		setSocketVariable = true;
 	};
 
+	documentation.nixos.enable = true;
 	nix = {
 		gc = {
 			automatic = true;
