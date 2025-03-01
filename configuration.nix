@@ -118,7 +118,6 @@
 			lua
 			nodejs
 			python314
-			pciutils
 			tmux
 			wget
 		];
@@ -184,6 +183,7 @@
 		};
 		nix-ld.enable = true;
 		starship.enable = true;
+		ssh.startAgent = true;
 		zsh = {
 			enable = true;
 			enableCompletion = true;
