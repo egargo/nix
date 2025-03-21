@@ -62,6 +62,7 @@
 			# no need to redefine it in your config for now)
 			#media-session.enable = true;
 		};
+		pulseaudio.enable = false;
 
 		# Enable touchpad support (enabled default in most desktopManager).
 		libinput.enable = true;
@@ -158,7 +159,6 @@
 			package = config.boot.kernelPackages.nvidiaPackages.latest;
 		};
 		nvidia-container-toolkit.enable = true;
-		pulseaudio.enable = false;
 	};
 
 	powerManagement.enable = true;
@@ -184,12 +184,12 @@
 	};
 
 	fonts.packages = with pkgs; [
-		(nerdfonts.override {
-			fonts = [ "Iosevka" ];
-		})
+		# (nerdfonts.override {
+		# 	fonts = [ "Iosevka" ];
+		# })
 
 		# # NOTE: unstable
-		# nerd-fonts.iosevka
+		nerd-fonts.iosevka
 	];
 
 	programs = {
