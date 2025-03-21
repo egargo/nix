@@ -47,10 +47,10 @@
 		# Flatpak
 		# flatpak.enable = true;
 
-		# Display manager
+		# Display manager.
 		displayManager.defaultSession = "gnome";
 
-		# Enable sound with pipewire.
+		# Enable sound.
 		pipewire = {
 			enable = true;
 			alsa.enable = true;
@@ -68,6 +68,11 @@
 
 		# Enable CUPS to print documents.
 		printing.enable = true;
+		avahi = {
+			enable = true;
+			nssmdns4 = true;
+			openFirewall = true;
+		};
 
 		# Enable the X11 windowing system.
 		xserver = {
@@ -112,13 +117,21 @@
 
 		systemPackages = with pkgs; [
 			alacritty
+			brave
+			dotnet-sdk_9
 			gcc
 			git
+			gnumake
 			go
+			jetbrains.rider
+			libreoffice
 			lua
+			netflix
 			nodejs
 			python314
+			stow
 			tmux
+			vscode-fhs
 			wget
 		];
 
@@ -127,7 +140,6 @@
 
 	hardware = {
 		graphics.enable = true;
-		pulseaudio.enable = false;
 		nvidia = {
 			modesetting.enable = true;
 			powerManagement.enable = true;
@@ -146,7 +158,10 @@
 			package = config.boot.kernelPackages.nvidiaPackages.latest;
 		};
 		nvidia-container-toolkit.enable = true;
+		pulseaudio.enable = false;
 	};
+
+	powerManagement.enable = true;
 
 	security.rtkit.enable = true;
 
@@ -172,6 +187,9 @@
 		(nerdfonts.override {
 			fonts = [ "Iosevka" ];
 		})
+
+		# # NOTE: unstable
+		# nerd-fonts.iosevka
 	];
 
 	programs = {
@@ -180,6 +198,8 @@
 		neovim = {
 			enable = true;
 			defaultEditor = true;
+			viAlias = true;
+			vimAlias = true;
 		};
 		nix-ld.enable = true;
 		starship.enable = true;
@@ -210,6 +230,12 @@
 			autosuggestions.enable = true;
 		};
 	};
+
+	# NOTE: unstable
+	# systemd.services = {
+	# 	"getty@tty1".enable = false;
+	# 	"autovt@tty1".enable = false;
+	# };
 
 	virtualisation.docker.rootless = {
 		enable = true;
