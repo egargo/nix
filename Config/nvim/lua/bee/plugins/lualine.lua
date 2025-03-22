@@ -7,9 +7,10 @@ return {
 		opts = {
 			options = {
 				icons_enabled = true,
+				theme = "kanagawa-wave",
 				-- theme = "gruvbox",
 				-- theme = "rose-pine",
-				theme = "tokyonight",
+				-- theme = "tokyonight",
 				-- theme = "catppuccin",
 				component_separators = "|",
 				section_separators = "",
