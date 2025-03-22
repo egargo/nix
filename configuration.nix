@@ -117,10 +117,11 @@
 		];
 
 		systemPackages = with pkgs; [
-			alacritty
+			# alacritty
 			brave
 			dotnet-sdk_9
 			gcc
+			ghostty
 			git
 			gnumake
 			go
@@ -129,7 +130,7 @@
 			lua
 			netflix
 			nodejs
-			python314
+			python313
 			stow
 			tmux
 			vscode-fhs
