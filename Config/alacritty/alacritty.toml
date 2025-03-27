@@ -1,0 +1,107 @@
+
+[terminal.shell]
+program = "/run/current-system/sw/bin/zsh"
+args = ["-l", "-c", "tmux attach || tmux"]
+
+[env]
+TERM = "xterm-256color"
+
+[window]
+title = "Alacritty"
+dynamic_title = true
+dynamic_padding = true
+startup_mode = "Windowed"
+decorations_theme_variant = "Dark"
+resize_increments = true
+
+[window.class]
+instance = "Alacritty"
+general = "Alacritty"
+
+[window.padding]
+x = 6
+y = 6
+
+[scrolling]
+history = 9999
+
+[font]
+size = 8
+
+[font.normal]
+family = "IosevkaNerdFontMono"
+style = "Regular"
+
+[font.offset]
+x = 0
+y = 0
+
+[font.glyph_offset]
+x = 0
+y = 0
+
+[bell]
+duration = 0
+
+[[mouse.bindings]]
+mouse = "Middle"
+action = "PasteSelection"
+
+[mouse]
+hide_when_typing = false
+
+[selection]
+semantic_escape_chars = ",│`|:\"' ()[]{}<>"
+
+[cursor]
+unfocused_hollow = true
+# vi_mode_style = "On"
+
+[cursor.style]
+blinking = "On"
+
+[colors.bright]
+black = "#444b6a"
+blue = "#7da6ff"
+cyan = "#0db9d7"
+green = "#b9f27c"
+magenta = "#bb9af7"
+red = "#ff7a93"
+white = "#acb0d0"
+yellow = "#ff9e64"
+
+[colors.normal]
+black = "#32344a"
+blue = "#7aa2f7"
+cyan = "#449dab"
+green = "#9ece6a"
+magenta = "#ad8ee6"
+red = "#f7768e"
+white = "#787c99"
+yellow = "#e0af68"
+
+[colors.primary]
+background = "#1a1b26"
+foreground = "#a9b1d6"
+
+[keyboard]
+
+[[keyboard.bindings]]
+key = "NumpadAdd"
+mods = "Control"
+action = "IncreaseFontSize"
+
+[[keyboard.bindings]]
+key = "NumpadSubtract"
+mods = "Control"
+action = "DecreaseFontSize"
+
+[[keyboard.bindings]]
+key = "Key0"
+mods = "Control"
+action = "ResetFontSize"
+
+[general]
+live_config_reload = true
+
+[terminal]
