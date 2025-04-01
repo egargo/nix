@@ -1,0 +1,4 @@
+app-notifications=false
+command=tmux attach || tmux
+font-family=Iosevka Nerd Font
+theme=Kanagawa Wave
