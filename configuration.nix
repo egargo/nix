@@ -13,6 +13,7 @@
 	# Bootloader.
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
+	# boot.kernelPackages = pkgs.linuxPackages_zen;
 
 	networking.hostName = "bee"; # Define your hostname.
 	# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -142,9 +143,25 @@
 		];
 
 		variables.EDITOR = "nvim";
+
+		sessionVariables = {
+			__NV_PRIME_RENDER_OFFLOAD = "1";
+			__NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
+			__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+			__VK_LAYER_NV_optimus = "NVIDIA_only";
+		};
 	};
 
 	hardware = {
+		bluetooth = {
+			enable = true;
+			powerOnBoot = true;
+			settings = {
+				General = {
+					Experimental = false;
+				};
+			};
+		};
 		graphics.enable = true;
 		nvidia = {
 			modesetting.enable = true;
@@ -155,17 +172,20 @@
 			prime = {
 				offload = {
 					enable = true;
-					# enableOffloadCmd = true;
+					enableOffloadCmd = true;
 				};
 				# sync.enable = true;
-				amdgpuBusId = "PCI:5:0:0";
 				nvidiaBusId = "PCI:1:0:0";
+				amdgpuBusId = "PCI:5:0:0";
 			};
-			package = config.boot.kernelPackages.nvidiaPackages.latest;
+			package = config.boot.kernelPackages.nvidiaPackages.production;
 		};
 		nvidia-container-toolkit.enable = true;
 		# channel:stable
-		pulseaudio.enable = false;
+		pulseaudio = {
+			enable = false;
+			package = with pkgs; [ pulseaudioFull ];
+		};
 	};
 
 	powerManagement.enable = true;
