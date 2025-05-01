@@ -11,9 +11,12 @@
 	];
 
 	# Bootloader.
-	boot.loader.systemd-boot.enable = true;
-	boot.loader.efi.canTouchEfiVariables = true;
-	# boot.kernelPackages = pkgs.linuxPackages_zen;
+	boot = {
+		loader = {
+			systemd-boot.enable = true;
+			efi.canTouchEfiVariables = true;
+		};
+	};
 
 	networking.hostName = "bee"; # Define your hostname.
 	# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -85,9 +88,7 @@
 			# Enable the GNOME Desktop Environment.
 			displayManager.gdm.enable = true;
 			desktopManager.gnome.enable = true;
-			excludePackages = with pkgs; [
-				xterm
-			];
+			excludePackages = with pkgs; [ xterm ];
 
 			# NVIDIA
 			videoDrivers = [ "nvidia" ];
@@ -97,6 +98,11 @@
 				layout = "us";
 				variant = "";
 			};
+		};
+
+		hardware.openrgb = {
+			enable = true;
+			motherboard = "amd";
 		};
 	};
 
@@ -149,36 +155,59 @@
 			__NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
 			__GLX_VENDOR_LIBRARY_NAME = "nvidia";
 			__VK_LAYER_NV_optimus = "NVIDIA_only";
+
+			VDPAU_DRIVER="nvidia";
+			DRI_PRIME="pci-0000_01_00_0";
+			EGL_PLATFORM = "wayland";
+			MOZ_DRM_DEVICE="/run/opengl-driver/lib/dri/nvidia_drv_video.so";
+			GBM_BACKEND = "nvidia-drm";
+			MOZ_DISABLE_RDD_SANDBOX = "1";
+			WLR_NO_HARDWARE_CURSORS = "1";
+			NVD_BACKEND = "direct";
+			NIXOS_OZONE_WL = "1";
+			MUTTER_ALLOW_HYBRID_GPUS = "1";
+			MOZ_ENABLE_WAYLAND = "1";
+			__GLX_RENDERER = "nvidia";
 		};
 	};
 
 	hardware = {
 		bluetooth = {
 			enable = true;
-			powerOnBoot = true;
+			powerOnBoot = false;
 			settings = {
 				General = {
 					Experimental = false;
 				};
 			};
 		};
-		graphics.enable = true;
+		graphics = {
+			enable = true;
+			extraPackages = with pkgs; [
+				nvidia-vaapi-driver
+			];
+		};
 		nvidia = {
+			forceFullCompositionPipeline = true;
 			modesetting.enable = true;
 			powerManagement.enable = true;
 			powerManagement.finegrained = false;
 			open = false;
 			nvidiaSettings = true;
+			package = config.boot.kernelPackages.nvidiaPackages.production;
 			prime = {
-				offload = {
-					enable = true;
-					enableOffloadCmd = true;
-				};
-				# sync.enable = true;
+				# offload = {
+				# 	enable = true;
+				# 	enableOffloadCmd = true;
+				# };
+				sync.enable = true;
 				nvidiaBusId = "PCI:1:0:0";
 				amdgpuBusId = "PCI:5:0:0";
 			};
-			package = config.boot.kernelPackages.nvidiaPackages.production;
+			# channel:unstable
+			# videoAcceleration = true;
+			gsp.enable = true;
+			nvidiaPersistenced = true;
 		};
 		nvidia-container-toolkit.enable = true;
 		# channel:stable
@@ -203,6 +232,7 @@
 				"docker"
 				"jackaudio"
 				"networkmanager"
+				"video"
 				"wheel"
 			];
 			shell = pkgs.zsh;
@@ -221,7 +251,16 @@
 	];
 
 	programs = {
-		firefox.enable = true;
+		firefox = {
+			enable = true;
+			preferences = {
+				"media.ffmpeg.vaapi.enabled" = true;
+				"media.av1.enabled" = false;
+				"media.hardware-video-decoding.force-enabled" = true;
+				"widget.wayland.opaque-region.enabled" = false;
+			};
+		};
+		# firefox.enable = true;
 		fzf.fuzzyCompletion = true;
 		neovim = {
 			enable = true;
