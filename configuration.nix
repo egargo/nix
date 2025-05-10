@@ -81,19 +81,26 @@
 			openFirewall = true;
 		};
 
+		# resolved = {
+		# 	enable = true;
+		# 	dnssec = "true";
+		# 	domains = [ "~." ];
+		# 	fallbackDns = [
+		# 		"1.1.1.3#one.one.one.one"
+		# 		"1.0.0.3#one.one.one.one"
+		# 		"2606:4700:4700::1113#one.one.one.one"
+		# 		"2606:4700:4700::1003#one.one.one.one"
+		# 	];
+		# 	dnsovertls = "true";
+		# };
+
 		# Enable the X11 windowing system.
 		xserver = {
 			enable = true;
-
-			# Enable the GNOME Desktop Environment.
 			displayManager.gdm.enable = true;
 			desktopManager.gnome.enable = true;
 			excludePackages = with pkgs; [ xterm ];
-
-			# NVIDIA
 			videoDrivers = [ "nvidia" ];
-
-			# Configure keymap in X11
 			xkb = {
 				layout = "us";
 				variant = "";
@@ -104,6 +111,8 @@
 			enable = true;
 			motherboard = "amd";
 		};
+
+		teamviewer.enable = true;
 	};
 
 	environment = {
@@ -131,6 +140,7 @@
 			dbeaver-bin
 			gcc
 			ghostty
+			gimp
 			git
 			gnumake
 			go
@@ -253,6 +263,7 @@
 		firefox = {
 			enable = true;
 			preferences = {
+				# "browser.tabs.loadInBackground" = false;
 				"media.ffmpeg.vaapi.enabled" = true;
 				"media.av1.enabled" = false;
 				"media.hardware-video-decoding.force-enabled" = true;
