@@ -18,7 +18,7 @@
 		};
 	};
 
-	networking.hostName = "bee"; # Define your hostname.
+	networking.hostName = "bee";
 	# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
 	# Configure network proxy if necessary
@@ -68,7 +68,7 @@
 		};
 
 		# channel:unstable
-		# pulseaudio.enable = false;
+		pulseaudio.enable = false;
 
 		# Enable touchpad support (enabled default in most desktopManager).
 		libinput.enable = true;
@@ -132,6 +132,7 @@
 			gnome-weather
 			seahorse
 			totem
+			yelp
 		];
 
 		systemPackages = with pkgs; [
@@ -141,19 +142,17 @@
 			gcc
 			ghostty
 			gimp
-			git
 			gnumake
 			go
 			lazydocker
-			lazygit
 			lua
 			nodejs
 			libreoffice
 			netflix
 			python313
 			postman
+			qbittorrent
 			stow
-			tmux
 			vscode-fhs
 			wget
 		];
@@ -214,16 +213,16 @@
 				amdgpuBusId = "PCI:5:0:0";
 			};
 			# channel:unstable
-			# videoAcceleration = true;
+			videoAcceleration = true;
 			gsp.enable = true;
 			nvidiaPersistenced = true;
 		};
 		nvidia-container-toolkit.enable = true;
 		# channel:stable
-		pulseaudio = {
-			enable = false;
-			package = with pkgs; [ pulseaudioFull ];
-		};
+		# pulseaudio = {
+		# 	enable = false;
+		# 	package = with pkgs; [ pulseaudioFull ];
+		# };
 	};
 
 	powerManagement.enable = true;
@@ -251,27 +250,27 @@
 
 	fonts.packages = with pkgs; [
 		# channel:stable
-		(nerdfonts.override {
-			fonts = [ "Iosevka" ];
-		})
+		# (nerdfonts.override {
+		# 	fonts = [ "Iosevka" ];
+		# })
 
 		# channel:unstable
-		# nerd-fonts.iosevka
+		nerd-fonts.iosevka
 	];
 
 	programs = {
 		firefox = {
 			enable = true;
 			preferences = {
-				# "browser.tabs.loadInBackground" = false;
 				"media.ffmpeg.vaapi.enabled" = true;
 				"media.av1.enabled" = false;
 				"media.hardware-video-decoding.force-enabled" = true;
 				"widget.wayland.opaque-region.enabled" = false;
 			};
 		};
-		# firefox.enable = true;
 		fzf.fuzzyCompletion = true;
+		git.enable = true;
+		lazygit.enable = true;
 		neovim = {
 			enable = true;
 			defaultEditor = true;
@@ -279,8 +278,14 @@
 			vimAlias = true;
 		};
 		nix-ld.enable = true;
-		starship.enable = true;
 		ssh.startAgent = true;
+		starship.enable = true;
+		tmux = {
+			enable = true;
+			keyMode = "vi";
+			shortcut = "Space";
+			terminal = "screen-256color";
+		};
 		zsh = {
 			enable = true;
 			enableCompletion = true;
@@ -319,7 +324,7 @@
 		setSocketVariable = true;
 	};
 
-	documentation.nixos.enable = true;
+	# documentation.nixos.enable = true;
 	nix = {
 		gc = {
 			automatic = true;
