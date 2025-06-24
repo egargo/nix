@@ -51,8 +51,13 @@
 		# Flatpak
 		# flatpak.enable = true;
 
-		# Display manager.
-		displayManager.defaultSession = "gnome";
+		# GNOME.
+		desktopManager.gnome.enable = true;
+		displayManager = {
+			defaultSession = "gnome";
+			gdm.enable = true;
+		};
+		gnome.gcr-ssh-agent.enable = false;
 
 		# Enable sound.
 		pipewire = {
@@ -97,8 +102,6 @@
 		# Enable the X11 windowing system.
 		xserver = {
 			enable = true;
-			displayManager.gdm.enable = true;
-			desktopManager.gnome.enable = true;
 			excludePackages = with pkgs; [ xterm ];
 			videoDrivers = [ "nvidia" ];
 			xkb = {
@@ -141,7 +144,7 @@
 			dbeaver-bin
 			gcc
 			ghostty
-			gimp
+			gimp3
 			gnumake
 			go
 			lazydocker
