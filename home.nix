@@ -16,6 +16,7 @@
           name = "bee";
           id = 0;
           extensions = {
+            force = true;
             packages = with pkgs.nur.repos.rycee.firefox-addons; [
               bitwarden
               ublock-origin
@@ -35,6 +36,9 @@
             "browser.ml.chat.prompts.1" = "";
             "browser.ml.chat.prompts.2" = "";
             "browser.ml.chat.prompts.3" = "";
+            "browser.tabs.closeWindowWithLastTab" = false;
+            "browser.tabs.warnOnClose" = true;
+            "extensions.autoDisableScopes" = 0;
             "media.ffmpeg.vaapi.enabled" = true;
             "media.av1.enabled" = false;
             "media.hardware-video-decoding.force-enabled" = true;
