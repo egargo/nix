@@ -272,6 +272,31 @@
 	programs = {
 		nix-ld.enable = true;
 		# ssh.startAgent = true;
+		zsh = {
+			enable = true;
+			enableCompletion = true;
+			ohMyZsh = {
+				enable = true;
+				plugins = [
+					"command-not-found"
+					"docker"
+					"fzf"
+					"git"
+					"git-prompt"
+					"gitignore"
+					"golang"
+					"rust"
+					"safe-paste"
+					"shrink-path"
+					"vi-mode"
+					"zsh-interactive-cd"
+					"zsh-navigation-tools"
+				];
+				theme = "robbyrussell";
+			};
+			syntaxHighlighting.enable = true;
+			autosuggestions.enable = true;
+		};
 	};
 
 	# channel:unstable
@@ -327,4 +352,5 @@
 	# Before changing this value read the documentation for this option
 	# (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 	system.stateVersion = "24.11"; # Did you read the comment?
+
 }
