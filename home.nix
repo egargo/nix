@@ -37,7 +37,6 @@
             "browser.ml.chat.prompts.1" = "";
             "browser.ml.chat.prompts.2" = "";
             "browser.ml.chat.prompts.3" = "";
-            "browser.tabs.closeWindowWithLastTab" = false;
             "browser.tabs.warnOnClose" = true;
             "extensions.autoDisableScopes" = 0;
             "media.ffmpeg.vaapi.enabled" = true;
