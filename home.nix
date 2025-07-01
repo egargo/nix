@@ -8,6 +8,7 @@
 
   programs = {
     home-manager.enable = true;
+
     firefox = {
       enable = true;
       languagePacks = [ "en-US" ];
