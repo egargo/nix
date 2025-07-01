@@ -1,38 +1,95 @@
 { pkgs, inputs, config, ... }:
 
 {
-  # imports = [
-  #   inputs.nur.hmModules.nur
-  # ];
-
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home.username = "dev";
   home.homeDirectory = "/home/dev";
 
-  home.packages = with pkgs; [
-    nixfmt-rfc-style
-    screenfetch
-  ];
-
   programs = {
     home-manager.enable = true;
-
     firefox = {
       enable = true;
-      languagePacks = [ "en-GB" ];
+      languagePacks = [ "en-US" ];
       profiles = {
         bee = {
           name = "bee";
           id = 0;
-          packages = with pkgs.nur.repos.rycee.firefox-addons; [
-            bitwarden
-            ublock-origin
-          ];
+          extensions = {
+            packages = with pkgs.nur.repos.rycee.firefox-addons; [
+              bitwarden
+              ublock-origin
+            ];
+          };
+          settings = {
+            "browser.ml.enable" = false;
+            "browser.ml.modelCacheMaxSizeBytes" = 0;
+            "browser.ml.modelCacheTimeout" = 0;
+            "browser.ml.modelHubRootUrl" = "";
+            "browser.ml.modelHubUrlTemplate" = "";
+            "browser.ml.chat.enabled" = false;
+            "browser.ml.chat.shortcuts" = false;
+            "browser.ml.chat.shortcuts.longPress" = 0;
+            "browser.ml.chat.prompt.prefix" = "";
+            "browser.ml.chat.prompts.0" = "";
+            "browser.ml.chat.prompts.1" = "";
+            "browser.ml.chat.prompts.2" = "";
+            "browser.ml.chat.prompts.3" = "";
+            "media.ffmpeg.vaapi.enabled" = true;
+            "media.av1.enabled" = false;
+            "media.hardware-video-decoding.force-enabled" = true;
+            "widget.wayland.opaque-region.enabled" = false;
+          };
         };
       };
+      policies = {
+        DisableFirefoxAccounts = true;
+        DisableFirefoxStudies = true;
+        DisablePocket = true;
+        DisableSetDesktopBackground = true;
+        DisableTelemetry = true;
+        DontCheckDefaultBrowser = true;
+        FirefoxHome = {
+          Search = false;
+          TopSites = false;
+          SponsoredTopSites = false;
+          Highlights = false;
+          Pocket = false;
+          SponsoredPocket = false;
+          Snippets = false;
+          Locked = true;
+        };
+        FirefoxSuggest = {
+          WebSuggestions = false;
+          SponsoredSuggestions = false;
+          ImproveSuggest = false;
+          Locked = true;
+        };
+        HardwareAcceleration = true;
+        Homepage = {
+          Locked = true;
+          StartPage = "none";
+        };
+        HttpsOnlyMode = "force_enabled";
+        NewTabPage = false;
+        OfferToSaveLogins = false;
+        OfferToSaveLoginsDefault = false;
+        SanitizeOnShutdown = {
+          Cache = true;
+          Cookies = false;
+          FormData = true;
+          History = true;
+          Sessions = false;
+          SiteSettings = true;
+          Locked = true;
+        };
+        SearchEngines = {
+          PreventInstalls = true;
+        };
+        ShowHomeButton = false;
+        TranslateEnabled = false;
+      };
     };
-    nushell.enable = true;
   };
 
   # This value determines the Home Manager release that your
