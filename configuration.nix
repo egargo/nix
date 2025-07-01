@@ -8,14 +8,14 @@
 	imports = [
 		# Include the results of the hardware scan.
 		./hardware-configuration.nix
+		# inputs.home-manager.nixosModules.home-manager
 	];
 
 	# Bootloader.
 	boot.loader.systemd-boot.enable = true;
 	boot.loader.efi.canTouchEfiVariables = true;
-	# boot.kernelPackages = pkgs.linuxPackages_zen;
 
-	networking.hostName = "bee"; # Define your hostname.
+	networking.hostName = "nixos"; # Define your hostname.
 	# networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
 
 	# Configure network proxy if necessary
@@ -26,7 +26,10 @@
 	networking.networkmanager.enable = true;
 
 	# Set your time zone.
-	time.timeZone = "Asia/Manila";
+	time = {
+		timeZone = "Asia/Manila";
+		hardwareClockInLocalTime = false;
+	};
 
 	# Select internationalisation properties.
 	i18n = {
@@ -45,11 +48,20 @@
 	};
 
 	services = {
+		chrony = {
+			enableNTS = false;
+			enable = true;
+		};
+
 		# Flatpak
-		# flatpak.enable = true;
+		flatpak.enable = true;
 
 		# Display manager.
 		displayManager.defaultSession = "gnome";
+		displayManager.gdm.enable = true;
+		desktopManager.gnome.enable = true;
+
+		gnome.gcr-ssh-agent.enable = true;
 
 		# Enable sound.
 		pipewire = {
@@ -63,6 +75,7 @@
 			# no need to redefine it in your config for now)
 			#media-session.enable = true;
 		};
+		pulseaudio.enable = false;
 
 		# channel:unstable
 		# pulseaudio.enable = false;
@@ -83,8 +96,6 @@
 			enable = true;
 
 			# Enable the GNOME Desktop Environment.
-			displayManager.gdm.enable = true;
-			desktopManager.gnome.enable = true;
 			excludePackages = with pkgs; [
 				xterm
 			];
@@ -117,28 +128,30 @@
 			gnome-weather
 			seahorse
 			totem
+			yelp
 		];
 
 		systemPackages = with pkgs; [
+			appimage-run
 			brave
+			godot_4
 			cargo rustc
 			dbeaver-bin
 			gcc
 			ghostty
-			git
+			gimp3
 			gnumake
 			go
 			lazydocker
-			lazygit
 			lua
 			nodejs
 			libreoffice
-			netflix
 			python313
 			postman
+			insomnia
 			stow
-			tmux
 			vscode-fhs
+			zed-editor
 			wget
 		];
 
@@ -148,21 +161,23 @@
 			__NV_PRIME_RENDER_OFFLOAD = "1";
 			__NV_PRIME_RENDER_OFFLOAD_PROVIDER = "NVIDIA-G0";
 			__GLX_VENDOR_LIBRARY_NAME = "nvidia";
+			__GLX_RENDERER = "nvidia";
 			__VK_LAYER_NV_optimus = "NVIDIA_only";
+
+			VDPAU_DRIVER="nvidia";
+			DRI_PRIME="pci-0000_01_00_0";
+			EGL_PLATFORM = "wayland";
+			MOZ_DRM_DEVICE="/run/opengl-driver/lib/dri/nvidia_drv_video.so";
+			GBM_BACKEND = "nvidia-drm";
+			MOZ_DISABLE_RDD_SANDBOX = "1";
+			WLR_NO_HARDWARE_CURSORS = "1";
+			NVD_BACKEND = "direct";
+			MUTTER_ALLOW_HYBRID_GPUS = "1";
+			MOZ_ENABLE_WAYLAND = "1";
 		};
 	};
 
 	hardware = {
-		bluetooth = {
-			enable = true;
-			powerOnBoot = true;
-			settings = {
-				General = {
-					Experimental = false;
-				};
-			};
-		};
-		graphics.enable = true;
 		nvidia = {
 			modesetting.enable = true;
 			powerManagement.enable = true;
@@ -170,21 +185,18 @@
 			open = false;
 			nvidiaSettings = true;
 			prime = {
-				offload = {
-					enable = true;
-					enableOffloadCmd = true;
-				};
-				# sync.enable = true;
+				sync.enable = true;
+				intelBusId = "PCI:0:0:0";
 				nvidiaBusId = "PCI:1:0:0";
-				amdgpuBusId = "PCI:5:0:0";
 			};
 			package = config.boot.kernelPackages.nvidiaPackages.production;
 		};
 		nvidia-container-toolkit.enable = true;
-		# channel:stable
-		pulseaudio = {
-			enable = false;
-			package = with pkgs; [ pulseaudioFull ];
+		graphics = {
+			enable = true;
+			extraPackages = with pkgs; [
+				nvidia-vaapi-driver
+			];
 		};
 	};
 
@@ -195,14 +207,14 @@
 	# Define a user account. Don't forget to set a password with ‘passwd’.
 	users = {
 		defaultUserShell = pkgs.zsh;
-		users.clint = {
+		users.dev = {
 			isNormalUser = true;
-			home = "/home/clint";
-			description = "Clint";
+			home = "/home/dev";
 			extraGroups = [
 				"docker"
 				"jackaudio"
 				"networkmanager"
+				"video"
 				"wheel"
 			];
 			shell = pkgs.zsh;
@@ -210,19 +222,21 @@
 		};
 	};
 
-	fonts.packages = with pkgs; [
-		# channel:stable
-		(nerdfonts.override {
-			fonts = [ "Iosevka" ];
-		})
+	home-manager = {
+		users = {
+			dev = import ./home.nix;
+		};
+	};
 
-		# channel:unstable
-		# nerd-fonts.iosevka
+	fonts.packages = with pkgs; [
+		nerd-fonts.iosevka
 	];
 
 	programs = {
 		firefox.enable = true;
 		fzf.fuzzyCompletion = true;
+		git.enable = true;
+		lazygit.enable = true;
 		neovim = {
 			enable = true;
 			defaultEditor = true;
@@ -231,7 +245,13 @@
 		};
 		nix-ld.enable = true;
 		starship.enable = true;
-		ssh.startAgent = true;
+		# ssh.startAgent = true;
+		tmux = {
+			enable = true;
+			keyMode = "vi";
+			shortcut = "Space";
+			terminal = "screen-256color";
+		};
 		zsh = {
 			enable = true;
 			enableCompletion = true;
@@ -259,15 +279,17 @@
 		};
 	};
 
-	# channel:unstable
-	# systemd.services = {
-	# 	"getty@tty1".enable = false;
-	# 	"autovt@tty1".enable = false;
-	# };
-
-	virtualisation.docker.rootless = {
+	virtualisation.docker = {
 		enable = true;
-		setSocketVariable = true;
+		daemon.settings = {
+			"default-address-pools" = [
+				{ "base" = "10.0.64.0/18"; "size" = 24; }
+			];
+		};
+		rootless = {
+			enable = true;
+			setSocketVariable = true;
+		};
 	};
 
 	documentation.nixos.enable = true;
@@ -283,7 +305,6 @@
 		};
 	};
 
-	# Allow unfree packages
 	nixpkgs.config.allowUnfree = true;
 
 	# Some programs need SUID wrappers, can be configured further or are
@@ -300,7 +321,7 @@
 	# services.openssh.enable = true;
 
 	# Open ports in the firewall.
-	# networking.firewall.allowedTCPPorts = [ ... ];
+	networking.firewall.allowedTCPPorts = [ 5000 ];
 	# networking.firewall.allowedUDPPorts = [ ... ];
 	# Or disable the firewall altogether.
 	# networking.firewall.enable = false;
