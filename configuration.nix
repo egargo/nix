@@ -57,7 +57,7 @@
 			defaultSession = "gnome";
 			gdm.enable = true;
 		};
-		gnome.gcr-ssh-agent.enable = false;
+		gnome.gcr-ssh-agent.enable = true;
 
 		# Enable sound.
 		pipewire = {
@@ -251,6 +251,14 @@
 		};
 	};
 
+
+	home-manager = {
+		users = {
+			clint = import ./home.nix;
+		};
+		extraSpecialArgs = { inherit pkgs inputs; };
+	};
+
 	fonts.packages = with pkgs; [
 		# channel:stable
 		# (nerdfonts.override {
@@ -262,15 +270,15 @@
 	];
 
 	programs = {
-		firefox = {
-			enable = true;
-			preferences = {
-				"media.ffmpeg.vaapi.enabled" = true;
-				"media.av1.enabled" = false;
-				"media.hardware-video-decoding.force-enabled" = true;
-				"widget.wayland.opaque-region.enabled" = false;
-			};
-		};
+		# firefox = {
+		# 	enable = true;
+		# 	preferences = {
+		# 		"media.ffmpeg.vaapi.enabled" = true;
+		# 		"media.av1.enabled" = false;
+		# 		"media.hardware-video-decoding.force-enabled" = true;
+		# 		"widget.wayland.opaque-region.enabled" = false;
+		# 	};
+		# };
 		fzf.fuzzyCompletion = true;
 		git.enable = true;
 		lazygit.enable = true;
@@ -281,7 +289,7 @@
 			vimAlias = true;
 		};
 		nix-ld.enable = true;
-		ssh.startAgent = true;
+		# ssh.startAgent = true;
 		starship.enable = true;
 		tmux = {
 			enable = true;
