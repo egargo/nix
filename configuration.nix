@@ -2,7 +2,7 @@
 # your system.  Help is available in the configuration.nix(5) man page
 # and in the NixOS manual (accessible by running ‘nixos-help’).
 
-{ config, pkgs, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   imports = [
@@ -227,6 +227,7 @@
     users = {
       dev = import ./home.nix;
     };
+    extraSpecialArgs = { inherit pkgs inputs; };
   };
 
   fonts.packages = with pkgs; [
@@ -234,7 +235,7 @@
   ];
 
   programs = {
-    firefox.enable = true;
+    # firefox.enable = true;
     fzf.fuzzyCompletion = true;
     git.enable = true;
     lazygit.enable = true;
