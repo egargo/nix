@@ -3,8 +3,10 @@
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "clint";
-  home.homeDirectory = "/home/clint";
+  home = {
+    username = "clint";
+    homeDirectory = "/home/clint";
+  };
 
   programs = {
     home-manager.enable = true;
@@ -95,7 +97,51 @@
         TranslateEnabled = false;
       };
     };
-  };
+	fzf.fuzzyCompletion = true;
+    git = {
+		enable = true;
+	};
+    lazydocker.enable = true;
+    lazygit.enable = true;
+	neovim = {
+		enable = true;
+		defaultEditor = true;
+		viAlias = true;
+		vimAlias = true;
+	};
+	starship.enable = true;
+	tmux = {
+		enable = true;
+		keyMode = "vi";
+		shortcut = "Space";
+		terminal = "screen-256color";
+	};
+	zsh = {
+		enable = true;
+		enableCompletion = true;
+		ohMyZsh = {
+			enable = true;
+			plugins = [
+				"command-not-found"
+				"docker"
+				"fzf"
+				"git"
+				"git-prompt"
+				"gitignore"
+				"golang"
+				"rust"
+				"safe-paste"
+				"shrink-path"
+				"vi-mode"
+				"zsh-interactive-cd"
+				"zsh-navigation-tools"
+			];
+			theme = "robbyrussell";
+		};
+		syntaxHighlighting.enable = true;
+		autosuggestions.enable = true;
+	};
+};
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

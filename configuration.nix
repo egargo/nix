@@ -270,58 +270,8 @@
 	];
 
 	programs = {
-		# firefox = {
-		# 	enable = true;
-		# 	preferences = {
-		# 		"media.ffmpeg.vaapi.enabled" = true;
-		# 		"media.av1.enabled" = false;
-		# 		"media.hardware-video-decoding.force-enabled" = true;
-		# 		"widget.wayland.opaque-region.enabled" = false;
-		# 	};
-		# };
-		fzf.fuzzyCompletion = true;
-		git.enable = true;
-		lazygit.enable = true;
-		neovim = {
-			enable = true;
-			defaultEditor = true;
-			viAlias = true;
-			vimAlias = true;
-		};
 		nix-ld.enable = true;
 		# ssh.startAgent = true;
-		starship.enable = true;
-		tmux = {
-			enable = true;
-			keyMode = "vi";
-			shortcut = "Space";
-			terminal = "screen-256color";
-		};
-		zsh = {
-			enable = true;
-			enableCompletion = true;
-			ohMyZsh = {
-				enable = true;
-				plugins = [
-					"command-not-found"
-					"docker"
-					"fzf"
-					"git"
-					"git-prompt"
-					"gitignore"
-					"golang"
-					"rust"
-					"safe-paste"
-					"shrink-path"
-					"vi-mode"
-					"zsh-interactive-cd"
-					"zsh-navigation-tools"
-				];
-				theme = "robbyrussell";
-			};
-			syntaxHighlighting.enable = true;
-			autosuggestions.enable = true;
-		};
 	};
 
 	# channel:unstable
@@ -377,5 +327,4 @@
 	# Before changing this value read the documentation for this option
 	# (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
 	system.stateVersion = "24.11"; # Did you read the comment?
-
 }
