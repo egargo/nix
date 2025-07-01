@@ -270,8 +270,7 @@
 	];
 
 	programs = {
-		nix-ld.enable = true;
-		# ssh.startAgent = true;
+		fzf.fuzzyCompletion = true;
 		zsh = {
 			enable = true;
 			enableCompletion = true;
