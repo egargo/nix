@@ -97,7 +97,7 @@
         TranslateEnabled = false;
       };
     };
-	fzf.fuzzyCompletion = true;
+	fzf.enable = true;
     git = {
 		enable = true;
 	};
