@@ -5,11 +5,7 @@
 { config, pkgs, inputs, ... }:
 
 {
-  imports = [
-    # Include the results of the hardware scan.
-    ./hardware-configuration.nix
-    # inputs.home-manager.nixosModules.home-manager
-  ];
+  imports = [ ./hardware-configuration.nix ];
 
   # Bootloader.
   boot.loader.systemd-boot.enable = true;
@@ -96,9 +92,7 @@
       enable = true;
 
       # Enable the GNOME Desktop Environment.
-      excludePackages = with pkgs; [
-        xterm
-      ];
+      excludePackages = with pkgs; [ xterm ];
 
       # NVIDIA
       videoDrivers = [ "nvidia" ];
@@ -195,9 +189,7 @@
     nvidia-container-toolkit.enable = true;
     graphics = {
       enable = true;
-      extraPackages = with pkgs; [
-        nvidia-vaapi-driver
-      ];
+      extraPackages = with pkgs; [ nvidia-vaapi-driver ];
     };
   };
 
@@ -211,28 +203,18 @@
     users.dev = {
       isNormalUser = true;
       home = "/home/dev";
-      extraGroups = [
-        "docker"
-        "jackaudio"
-        "networkmanager"
-        "video"
-        "wheel"
-      ];
+      extraGroups = [ "docker" "jackaudio" "networkmanager" "video" "wheel" ];
       shell = pkgs.zsh;
       packages = with pkgs; [ ];
     };
   };
 
-  home-manager = {
-    users = {
-      dev = import ./home.nix;
-    };
-    extraSpecialArgs = { inherit pkgs inputs; };
-  };
+  # home-manager = {
+  #   users = { dev = import ./home.nix; };
+  #   extraSpecialArgs = { inherit pkgs inputs; };
+  # };
 
-  fonts.packages = with pkgs; [
-    nerd-fonts.iosevka
-  ];
+  fonts.packages = with pkgs; [ nerd-fonts.iosevka ];
 
   programs = {
     # firefox.enable = true;
@@ -284,12 +266,10 @@
   virtualisation.docker = {
     enable = true;
     daemon.settings = {
-      "default-address-pools" = [
-        {
-          "base" = "10.0.64.0/18";
-          "size" = 24;
-        }
-      ];
+      "default-address-pools" = [{
+        "base" = "10.0.64.0/18";
+        "size" = 24;
+      }];
     };
     rootless = {
       enable = true;
@@ -306,10 +286,7 @@
     };
     settings = {
       auto-optimise-store = true;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
+      experimental-features = [ "nix-command" "flakes" ];
     };
   };
 

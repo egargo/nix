@@ -9,56 +9,25 @@
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
-    nur = {
-      url = "github:nix-community/NUR";
+    firefox-addons = {
+      url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
   };
 
-  # outputs = { nixpkgs, home-manager, ... }@inputs:
-  # let
-  # 	system = "x86_64-linux";
-  # 	pkgs = nixpkgs.legacyPackages.${system};
-  # in {
-  # 	nixosConfigurations = {
-  # 		nixos = nixpkgs.lib.nixosSystem {
-  # 			specialArgs = { inherit system; };
-  # 			modules = [
-  # 				./configuration.nix
-  # 				home-manager.nixosModules.home-manager
-  # 			];
-  # 		};
-  # 	};
-  # };
-
-  outputs = { self, nixpkgs, home-manager, nur, ... }@inputs:
-    let
-      system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+  outputs = { self, nixpkgs, home-manager, ... }@inputs:
+    let system = "x86_64-linux";
     in {
       nixosConfigurations = {
         nixos = nixpkgs.lib.nixosSystem {
-          specialArgs = { inherit inputs; };
-          modules = [
-            { nixpkgs.overlays = [ nur.overlay ]; }
-            ./configuration.nix
-            home-manager.nixosModules.home-manager
-          ];
+          specialArgs = { inherit inputs system; };
+          modules = [ ./configuration.nix ];
         };
       };
-    };
 
-  # outputs =
-  #   inputs@{ nixpkgs, home-manager, ... }:
-  #   {
-  #     nixosConfigurations = {
-  #       nixos = nixpkgs.lib.nixosSystem {
-  #         system = "x86_64-linux";
-  #         modules = [
-  #           ./configuration.nix
-  #           home-manager.nixosModules.home-manager
-  #         ];
-  #       };
-  #     };
-  #   };
+      homeConfigurations.dev = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages.${system};
+        modules = [ ./home.nix ];
+      };
+    };
 }

@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }:
+{ inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -9,7 +9,7 @@
   programs = {
     home-manager.enable = true;
     firefox = {
-      enable = true;
+      enable = false;
       languagePacks = [ "en-US" ];
       profiles = {
         bee = {
@@ -17,10 +17,7 @@
           id = 0;
           extensions = {
             force = true;
-            packages = with pkgs.nur.repos.rycee.firefox-addons; [
-              bitwarden
-              ublock-origin
-            ];
+            packages = with inputs.firefox-addons; [ bitwarden ublock-origin ];
           };
           settings = {
             "browser.ml.enable" = false;
@@ -87,9 +84,7 @@
           SiteSettings = true;
           Locked = true;
         };
-        SearchEngines = {
-          PreventInstalls = true;
-        };
+        SearchEngines = { PreventInstalls = true; };
         ShowHomeButton = false;
         TranslateEnabled = false;
       };
