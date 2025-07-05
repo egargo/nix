@@ -27,14 +27,6 @@
     };
     syntaxHighlighting.enable = true;
     autosuggestions.enable = true;
-    shellAliases = {
-      nfu = "nix flake update";
-      hmb = "home-manager build switch --flake .";
-      nxb = "nixos-rebuild switch --flake .";
-      nsg = "nix-store --gc";
-      ncg = "nix-collect-garbage -d";
-      sbc = "/run/current-system/bin/switch-to-configuration boot";
-    };
   };
 
   environment.systemPackages = with pkgs; [
