@@ -28,3 +28,18 @@ nix-store --gc
 sudo nix-collect-garbage -d
 sudo /run/current-system/bin/switch-to-configuration boot
 ```
+
+
+## SOPS
+
+- standalone dev access key
+```sh
+mkdir -p ~/.config/sops/age
+
+nix shell nixpkgs#age -c age-keygen -o ~/.config/sops/age/key.txt
+
+Public key: age152qfu6qjyjtmwmsr9a0rzqgmwkr46kwzhejz7ts2l7pnahvdegrqd9hl4w
+
+
+age136xxygzgflwdqk9kjawsf5aetkq9vycweddd2pghpxntdnase9kqte87qn
+```

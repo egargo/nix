@@ -1,0 +1,12 @@
+keys:
+  - &users:
+    - &primary age152qfu6qjyjtmwmsr9a0rzqgmwkr46kwzhejz7ts2l7pnahvdegrqd9hl4w
+  - &hosts:
+      - &bee age136xxygzgflwdqk9kjawsf5aetkq9vycweddd2pghpxntdnase9kqte87qn
+
+creation_rules:
+  - path_regex: secrets/secrets.yaml$
+    key_groups:
+      - age:
+        - *primary
+        - *bee

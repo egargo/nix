@@ -1,4 +1,4 @@
-{ config, pkgs, inputs, ... }:
+{ pkgs, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -24,6 +24,13 @@
     vscode-fhs
     wget
   ];
+
+  xdg.configFile = {
+    nvim = {
+      source = ../../config;
+      recursive = true;
+    };
+  };
 
   fonts.fontconfig.enable = true;
 
@@ -89,6 +96,12 @@
         NewTabPage = false;
         OfferToSaveLogins = false;
         OfferToSaveLoginsDefault = false;
+        Permissions = {
+          Notifications = {
+            Allow = [ "https://www.facebook.com" ];
+            BlockNewRequests = true;
+          };
+        };
         SanitizeOnShutdown = {
           Cache = true;
           Cookies = false;
@@ -109,11 +122,17 @@
       enable = true;
       userEmail = "67180945+egargo@users.noreply.github.com";
       userName = "Clint Egargo";
+      extraConfig = {
+        branch.autosetuprebase = "always";
+        github.user = "egargo";
+        init.defaultBranch = "master";
+      };
     };
     lazydocker.enable = true;
     lazygit.enable = true;
     neovim = {
       enable = true;
+      extraConfig = builtins.readFile ../nvim/init.lua;
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;

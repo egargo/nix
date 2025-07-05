@@ -17,21 +17,26 @@
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
-      legacyPackages = nixpkgs.legacyPackages.${system};
+      userName = "clint";
+      hostName = "bee";
       system = "x86_64-linux";
+      legacyPackages = nixpkgs.legacyPackages.${system};
       pkgs = import nixpkgs {
         inherit system legacyPackages;
         config.allowUnfree = true;
       };
     in {
-      nixosConfigurations.bee = nixpkgs.lib.nixosSystem {
-        modules = [ ./configuration.nix ];
+      nixosConfigurations.${hostName} = nixpkgs.lib.nixosSystem {
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./nixos/configuration.nix
+        ];
       };
 
-      homeConfigurations."clint" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.${userName} = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         extraSpecialArgs = { inherit inputs; };
-        modules = [ ./home.nix ];
+        modules = [ ./home-manager/default.nix ];
       };
     };
 }
