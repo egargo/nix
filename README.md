@@ -4,8 +4,9 @@ My NixOS configuration.
 
 
 ```bash
-stow nvim -t ~
-stow tmux -t ~
+ln -s "$(pwd)/config/nvim" ~/.config  \
+&& ln -s "$(pwd)/config/ghostty" ~/.config \
+&& ln -s "$(pwd)/config/.tmux.conf" ~
 ```
 
 ```bash
