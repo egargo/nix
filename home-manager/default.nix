@@ -1,6 +1,10 @@
 { pkgs, inputs, ... }:
 
 {
+  imports = [
+    ../config
+  ];
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
@@ -132,7 +136,7 @@
     lazygit.enable = true;
     neovim = {
       enable = true;
-      extraConfig = builtins.readFile ./config/nvim/init.lua;
+      extraConfig = builtins.readFile ../config/nvim/init.lua;
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
