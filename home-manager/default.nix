@@ -1,8 +1,13 @@
 { pkgs, inputs, ... }:
 
+let
+  configs = with ../config; [
+    /nvim
+  ];
+
 {
   imports = [
-    ../config
+    configs
   ];
 
   # Home Manager needs a bit of information about you and the
