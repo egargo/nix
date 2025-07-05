@@ -1,10 +1,5 @@
 { pkgs, inputs, ... }:
 
-let
-  configs = with ../config; [
-    /nvim
-  ];
-
 {
   imports = [
     configs
@@ -141,7 +136,7 @@ let
     lazygit.enable = true;
     neovim = {
       enable = true;
-      extraConfig = builtins.readFile ./nvim/init.lua;
+      extraConfig = builtins.readFile ../config/nvim/init.lua;
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
