@@ -132,7 +132,7 @@
     lazygit.enable = true;
     neovim = {
       enable = true;
-      extraConfig = builtins.readFile ../config/nvim/init.lua;
+      extraConfig = builtins.readFile ./nvim/init.lua;
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
