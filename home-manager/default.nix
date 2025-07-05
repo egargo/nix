@@ -25,12 +25,12 @@
     wget
   ];
 
-  xdg.configFile = {
-    nvim = {
-      source = ../../config;
-      recursive = true;
-    };
-  };
+  # xdg.configFile = {
+  #   nvim = {
+  #     source = ../config;
+  #     recursive = true;
+  #   };
+  # };
 
   fonts.fontconfig.enable = true;
 
@@ -132,7 +132,7 @@
     lazygit.enable = true;
     neovim = {
       enable = true;
-      extraConfig = builtins.readFile ../nvim/init.lua;
+      extraConfig = builtins.readFile ./config/nvim/init.lua;
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
