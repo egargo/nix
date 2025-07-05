@@ -5,7 +5,7 @@
   imports = [
     ./hardware-configuration.nix
     ./audio.nix
-    ./env.nix
+    ./environment.nix
     ./gnome.nix
     ./networking.nix
     ./nvidia.nix

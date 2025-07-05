@@ -25,9 +25,9 @@
     nvidiaPersistenced = true;
   };
 
-  nvidia-container-toolkit.enable = true;
+  hardware.nvidia-container-toolkit.enable = true;
 
-  hardware.openrgb = {
+  services.hardware.openrgb = {
     enable = true;
     motherboard = "amd";
   };
