@@ -13,17 +13,16 @@
       url = "gitlab:rycee/nur-expressions?dir=pkgs/firefox-addons";
       inputs.nixpkgs.follows = "nixpkgs";
     };
-
-    # nur = {
-    #   url = "github:nix-community/NUR";
-    #   inputs.nixpkgs.follows = "nixpkgs";
-    # };
   };
 
   outputs = { self, nixpkgs, home-manager, ... }@inputs:
     let
+      legacyPackages = nixpkgs.legacyPackages.${system};
       system = "x86_64-linux";
-      pkgs = nixpkgs.legacyPackages.${system};
+      pkgs = import nixpkgs {
+        inherit system legacyPackages;
+        config.allowUnfree = true;
+      };
     in {
       nixosConfigurations.bee = nixpkgs.lib.nixosSystem {
         modules = [ ./configuration.nix ];

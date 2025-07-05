@@ -8,6 +8,25 @@
     homeDirectory = "/home/clint";
   };
 
+  home.packages = with pkgs; [
+    cargo rustc
+    gcc
+    ghostty
+    gimp3
+    gnumake
+    go
+    lua
+    nodejs
+    libreoffice
+    python313
+    postman
+    stow
+    vscode-fhs
+    wget
+  ];
+
+  fonts.fontconfig.enable = true;
+
   programs = {
     home-manager.enable = true;
 
@@ -27,6 +46,7 @@
           };
           settings = {
             "browser.cache.disk.enable" = false;
+            "browser.profiles.enabled" = true;
             "browser.tabs.closeWindowWithLastTab" = true;
             "browser.tabs.warnOnClose" = true;
             "extensions.autoDisableScopes" = 0;
@@ -97,11 +117,6 @@
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
-    };
-    starship = {
-      enable = true;
-      enableZshIntegration = true;
-      settings = pkgs.lib.importTOML ./Config/starship.toml;
     };
     tmux = {
       enable = true;

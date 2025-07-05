@@ -6,7 +6,6 @@
 
 {
 	imports = [
-		# Include the results of the hardware scan.
 		./hardware-configuration.nix
 	];
 
@@ -141,24 +140,23 @@
 		systemPackages = with pkgs; [
       home-manager
 			brave
-			cargo rustc
-			dbeaver-bin
-			gcc
+			# dbeaver-bin
+			# gcc
 			ghostty
-			gimp3
-			gnumake
-			go
-			lazydocker
-			lua
-			nodejs
-			libreoffice
-			netflix
-			python313
-			postman
-			qbittorrent
-			stow
-			vscode-fhs
-			wget
+			# gimp3
+			# gnumake
+			# go
+			# lazydocker
+			# lua
+			# nodejs
+			# libreoffice
+			# netflix
+			# python313
+			# postman
+			# qbittorrent
+			# stow
+			# vscode-fhs
+			# wget
 		];
 
 		variables.EDITOR = "nvim";
@@ -271,7 +269,6 @@
 	];
 
 	programs = {
-    home-manager.
 		fzf.fuzzyCompletion = true;
 		zsh = {
 			enable = true;
@@ -306,10 +303,14 @@
 	# 	"autovt@tty1".enable = false;
 	# };
 
-	virtualisation.docker.rootless = {
-		enable = true;
-		setSocketVariable = true;
-	};
+  virtualisation = {
+    docker = {
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
+    };
+  };
 
 	# documentation.nixos.enable = true;
 	nix = {
