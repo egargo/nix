@@ -1,5 +1,6 @@
 {
   imports = [
+    ./dconf.nix
     ./firefox.nix
     ./git.nix
     ./nvim.nix
