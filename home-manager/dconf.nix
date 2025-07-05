@@ -38,8 +38,6 @@
     "org/gnome/desktop/background" = {
       color-shading-type = "solid";
       picture-options = "zoom";
-      picture-uri = "file:///home/clint/.local/share/backgrounds/2025-05-03-11-51-57-1986-0125-d20eNobhi80-unsplash.jpg";
-      picture-uri-dark = "file:///home/clint/.local/share/backgrounds/2025-05-03-11-51-57-1986-0125-d20eNobhi80-unsplash.jpg";
       primary-color = "#000000000000";
       secondary-color = "#000000000000";
     };
