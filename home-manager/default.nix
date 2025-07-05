@@ -1,6 +1,10 @@
 { pkgs, inputs, ... }:
 
 {
+  imports = [
+    ./tmux
+  ];
+
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
   home = {
@@ -128,12 +132,6 @@
       defaultEditor = true;
       viAlias = true;
       vimAlias = true;
-    };
-    tmux = {
-      enable = true;
-      keyMode = "vi";
-      shortcut = "Space";
-      terminal = "screen-256color";
     };
   };
 
