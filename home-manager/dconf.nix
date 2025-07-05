@@ -57,7 +57,7 @@
     };
 
     "org/gnome/desktop/input-sources" = {
-      sources = [("xkb" "us")];
+      sources = ["xkb" "us"];
       xkb-options = ["terminate:ctrl_alt_bksp"];
     };
 
@@ -121,7 +121,7 @@
 
     "org/gnome/desktop/wm/preferences" = {
       num-workspaces = 3;
-    }:
+    };
 
     "org/gnome/mutter" = {
       dynamic-workspaces = true;
