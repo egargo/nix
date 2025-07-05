@@ -29,7 +29,7 @@
     autosuggestions.enable = true;
   };
 
-  systemPackages = with pkgs; [
+  environment.systemPackages = with pkgs; [
     home-manager
     brave
     ghostty

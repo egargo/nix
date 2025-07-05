@@ -1,5 +1,5 @@
 {
-  variables.EDITOR = "nvim";
+  environment.variables.EDITOR = "nvim";
 
   environment.sessionVariables = {
     __NV_PRIME_RENDER_OFFLOAD = "1";
