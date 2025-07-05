@@ -1,4 +1,4 @@
-{ pkgs, inputs, config, ... }:
+{ config, pkgs, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
@@ -20,25 +20,13 @@
           id = 0;
           extensions = {
             force = true;
-            packages = with pkgs.nur.repos.rycee.firefox-addons; [
+            packages = with inputs.firefox-addons.packages."x86_64-linux"; [
               bitwarden
               ublock-origin
             ];
           };
           settings = {
-            "browser.ml.enable" = false;
-            "browser.ml.modelCacheMaxSizeBytes" = 0;
-            "browser.ml.modelCacheTimeout" = 0;
-            "browser.ml.modelHubRootUrl" = "";
-            "browser.ml.modelHubUrlTemplate" = "";
-            "browser.ml.chat.enabled" = false;
-            "browser.ml.chat.shortcuts" = false;
-            "browser.ml.chat.shortcuts.longPress" = 0;
-            "browser.ml.chat.prompt.prefix" = "";
-            "browser.ml.chat.prompts.0" = "";
-            "browser.ml.chat.prompts.1" = "";
-            "browser.ml.chat.prompts.2" = "";
-            "browser.ml.chat.prompts.3" = "";
+            "browser.cache.disk.enable" = false;
             "browser.tabs.closeWindowWithLastTab" = true;
             "browser.tabs.warnOnClose" = true;
             "extensions.autoDisableScopes" = 0;
@@ -98,24 +86,30 @@
       };
     };
     git = {
-		enable = true;
-	};
+      enable = true;
+      userEmail = "67180945+egargo@users.noreply.github.com";
+      userName = "Clint Egargo";
+    };
     lazydocker.enable = true;
     lazygit.enable = true;
-	neovim = {
-		enable = true;
-		defaultEditor = true;
-		viAlias = true;
-		vimAlias = true;
-	};
-	starship.enable = true;
-	tmux = {
-		enable = true;
-		keyMode = "vi";
-		shortcut = "Space";
-		terminal = "screen-256color";
-	};
-};
+    neovim = {
+      enable = true;
+      defaultEditor = true;
+      viAlias = true;
+      vimAlias = true;
+    };
+    starship = {
+      enable = true;
+      enableZshIntegration = true;
+      settings = pkgs.lib.importTOML ./Config/starship.toml;
+    };
+    tmux = {
+      enable = true;
+      keyMode = "vi";
+      shortcut = "Space";
+      terminal = "screen-256color";
+    };
+  };
 
   # This value determines the Home Manager release that your
   # configuration is compatible with. This helps avoid breakage

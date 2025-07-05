@@ -139,6 +139,7 @@
 		];
 
 		systemPackages = with pkgs; [
+      home-manager
 			brave
 			cargo rustc
 			dbeaver-bin
@@ -252,12 +253,12 @@
 	};
 
 
-	home-manager = {
-		users = {
-			clint = import ./home.nix;
-		};
-		extraSpecialArgs = { inherit pkgs inputs; };
-	};
+	# home-manager = {
+	# 	users = {
+	# 		clint = import ./home.nix;
+	# 	};
+	# 	extraSpecialArgs = { inherit pkgs inputs; };
+	# };
 
 	fonts.packages = with pkgs; [
 		# channel:stable
@@ -270,6 +271,7 @@
 	];
 
 	programs = {
+    home-manager.
 		fzf.fuzzyCompletion = true;
 		zsh = {
 			enable = true;
