@@ -1,13 +1,18 @@
-{ inputs, ... }:
+{ config, lib, pkgs, inputs, ... }:
 
 {
   # Home Manager needs a bit of information about you and the
   # paths it should manage.
-  home.username = "dev";
-  home.homeDirectory = "/home/dev";
+  home = {
+    username = "dev";
+    homeDirectory = "/home/dev";
+  };
+
+  home.packages = with pkgs; [ ghc ];
 
   programs = {
     home-manager.enable = true;
+
     firefox = {
       enable = false;
       languagePacks = [ "en-US" ];
@@ -15,10 +20,13 @@
         bee = {
           name = "bee";
           id = 0;
-          extensions = {
-            force = true;
-            packages = with inputs.firefox-addons; [ bitwarden ublock-origin ];
-          };
+          # extensions = {
+          #   force = true;
+          #   packages = with inputs.firefox-addons.${pkgs.system}; [
+          #     bitwarden
+          #     ublock-origin
+          #   ];
+          # };
           settings = {
             "browser.ml.enable" = false;
             "browser.ml.modelCacheMaxSizeBytes" = 0;
@@ -50,6 +58,19 @@
         DisableSetDesktopBackground = true;
         DisableTelemetry = true;
         DontCheckDefaultBrowser = true;
+        # ExtensionSettings = {
+        #   "uBlock0@raymondhill.net" = {
+        #     installation_mode = "force_installed";
+        #     install_url =
+        #       "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+        #     private_browsing = true;
+        #   };
+        #   "446900e4-71c2-419f-a6a7-df9c091e268b" = {
+        #     installation_mode = "force_installed";
+        #     install_url =
+        #       "https://addons.mozilla.org/firefox/downloads/latest/bitwarden-password-manager/latest.xpi";
+        #   };
+        # };
         FirefoxHome = {
           Search = false;
           TopSites = false;
@@ -75,6 +96,7 @@
         NewTabPage = false;
         OfferToSaveLogins = false;
         OfferToSaveLoginsDefault = false;
+        PasswordManagerEnabled = false;
         SanitizeOnShutdown = {
           Cache = true;
           Cookies = false;

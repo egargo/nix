@@ -24,4 +24,5 @@ sudo /run/current-system/bin/switch-to-configuration boot
 # Flakes
 nix flake update
 sudo nixos-rebuild switch --flake .
+home-manager switch --flake .
 ```

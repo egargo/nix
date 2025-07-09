@@ -7,7 +7,6 @@
 {
   imports = [ ./hardware-configuration.nix ];
 
-  # Bootloader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
 
@@ -126,12 +125,11 @@
     ];
 
     systemPackages = with pkgs; [
-      appimage-run
+      home-manager
       brave
       godot_4
       cargo
       rustc
-      dbeaver-bin
       gcc
       ghostty
       gimp3
@@ -143,7 +141,6 @@
       libreoffice
       python313
       postman
-      insomnia
       stow
       vscode-fhs
       zed-editor
@@ -207,6 +204,7 @@
       shell = pkgs.zsh;
       packages = with pkgs; [ ];
     };
+    groups.libvirtd.members = [ "dev" ];
   };
 
   # home-manager = {
@@ -236,6 +234,7 @@
       shortcut = "Space";
       terminal = "screen-256color";
     };
+    virt-manager.enable = true;
     zsh = {
       enable = true;
       enableCompletion = true;
@@ -263,18 +262,22 @@
     };
   };
 
-  virtualisation.docker = {
-    enable = true;
-    daemon.settings = {
-      "default-address-pools" = [{
-        "base" = "10.0.64.0/18";
-        "size" = 24;
-      }];
-    };
-    rootless = {
+  virtualisation = {
+    docker = {
       enable = true;
-      setSocketVariable = true;
+      daemon.settings = {
+        "default-address-pools" = [{
+          "base" = "10.0.64.0/18";
+          "size" = 24;
+        }];
+      };
+      rootless = {
+        enable = true;
+        setSocketVariable = true;
+      };
     };
+    libvirtd.enable = true;
+    spiceUSBRedirection.enable = true;
   };
 
   documentation.nixos.enable = true;
@@ -306,7 +309,7 @@
   # services.openssh.enable = true;
 
   # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 5000 ];
+  networking.firewall.allowedTCPPorts = [ 5000 9876 8008 ];
   # networking.firewall.allowedUDPPorts = [ ... ];
   # Or disable the firewall altogether.
   # networking.firewall.enable = false;
